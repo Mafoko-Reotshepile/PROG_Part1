@@ -18,6 +18,17 @@ public class RegistrationLoginAppp {
         Scanner scanner = new Scanner(System.in);
         Register register = new Register();
         Login login = new Login();
+        
+        //Prompts to register a user 
+        System.out.println("=== User Registration ===");
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        System.out.print("Enter cellphone number (+27XXXXXXXXX): ");
+        String phoneNumber = scanner.nextLine();
 
     }
 
