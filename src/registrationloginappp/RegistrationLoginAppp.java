@@ -29,7 +29,22 @@ public class RegistrationLoginAppp {
 
         System.out.print("Enter cellphone number (+27XXXXXXXXX): ");
         String phoneNumber = scanner.nextLine();
+        
+         // Only proceed if registration is successful
+        if (register.registerUser(username, password, phoneNumber)) 
+        {
+            System.out.println("\n=== User Login ===");
 
+            System.out.print("Enter username: ");
+            String loginUsername = scanner.nextLine();
+
+            System.out.print("Enter password: ");
+            String loginPassword = scanner.nextLine();
+
+            login.loginUser(loginUsername, loginPassword, register.getUsername(), register.getPassword());
+        }
+        
+        scanner.close();
     }
 
 }
