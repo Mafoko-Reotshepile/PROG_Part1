@@ -4,6 +4,7 @@
  */
 package registrationloginappp;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 /**
  *
  * @author RC_Student_lab
@@ -15,36 +16,36 @@ public class RegistrationLoginAppp {
      */
     public static void main(String[] args)
     {
-        Scanner scanner = new Scanner(System.in);
+        
         Register register = new Register();
         Login login = new Login();
+        MessageHandler messageHandler = new MessageHandler();
+     
+       
+       String username = JOptionPane.showInputDialog("Enter username:");
+       String password = JOptionPane.showInputDialog("Enter password:");
+       String phoneNumber = JOptionPane.showInputDialog("Enter cellphone number (+27XXXXXXXXX):");
         
-        //Prompts to register a user 
-        System.out.println("=== User Registration ===");
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
-
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        System.out.print("Enter cellphone number (+27XXXXXXXXX): ");
-        String phoneNumber = scanner.nextLine();
-        
-         // Only proceed if registration is successful
+         // Only proceeds if registration is successful
         if (register.registerUser(username, password, phoneNumber)) 
         {
-            System.out.println("\n=== User Login ===");
+            String loginUsername = JOptionPane.showInputDialog("Login - Enter username:");
+            String loginPassword = JOptionPane.showInputDialog("Login - Enter password:");
 
-            System.out.print("Enter username: ");
-            String loginUsername = scanner.nextLine();
-
-            System.out.print("Enter password: ");
-            String loginPassword = scanner.nextLine();
-
-            login.loginUser(loginUsername, loginPassword, register.getUsername(), register.getPassword());
+         
+        
+        
+        if (login.loginUser(loginUsername, loginPassword, register.getUsername(), register.getPassword())) {
+                JOptionPane.showMessageDialog(null, "Welcome to QuickChat!");
+                
+                // Show the menu
+                System.out.println(" ");
+                messageHandler.showMenu();
+            } else {
+                JOptionPane.showMessageDialog(null, "Login failed. Exiting.");
+            }
         }
         
-        scanner.close();
     }
 
 }
