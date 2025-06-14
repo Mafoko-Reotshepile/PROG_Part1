@@ -28,8 +28,13 @@ public class MessageHandler
                 Main Menu:
                 1. Add Messages
                 2. View All Messages
-                3. Exit
-                Enter your choice (1–3):""");
+                3. Display Longest Message
+                4. Search Message by Recipient
+                5. Delete Message by Hash
+                6. Load Message from JSON
+                7. Message Report
+                8. Exit
+                Enter your choice (1–8):""");
 
             switch (option) 
             {

@@ -13,12 +13,14 @@ public class Login
     
     public boolean loginUser(String inputUsername, String inputPassword, String registeredUsername, String registeredPassword) 
     {
-        if (!inputUsername.equals(registeredUsername)) {
+        if (!inputUsername.equals(registeredUsername)) 
+        {
             System.out.println("Invalid username.");
             return false;
         }
 
-        if (!inputPassword.equals(registeredPassword)) {
+        if (!inputPassword.equals(registeredPassword)) 
+        {
             System.out.println("Invalid password.");
             return false;
         }
