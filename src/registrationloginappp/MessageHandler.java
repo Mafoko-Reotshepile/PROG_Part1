@@ -40,13 +40,16 @@ public class MessageHandler
             {
                 case "1" -> addMessages();
                 case "2" -> viewMessages();
-                case "3" -> {
-                    saveMessagesToJSON();
-                    JOptionPane.showMessageDialog(null, "Thank you. Program exiting.");
-                    //System.exit(0);
-                    return;
+                case "3" -> displayLongestMessage(); 
+                case"4" -> {
+                    String recipient = JOptionPane.showInputDialog("Enter recipient name to search:");
+                    searchByRecipient(recipient);
                 }
-                default -> JOptionPane.showMessageDialog(null, "Invalid choice. Try again.");
+                case "5" -> {
+                    String hash = JOptionPane.showInputDialog("Enter message hash to delete");
+                    deleteByHash(hash);
+                }
+                
             }
         }
     }
