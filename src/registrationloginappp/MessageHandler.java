@@ -49,7 +49,14 @@ public class MessageHandler
                     String hash = JOptionPane.showInputDialog("Enter message hash to delete");
                     deleteByHash(hash);
                 }
-                
+                 case "6" -> readMessagesFromJSON();
+                case "7" -> displayMessageReport();
+                case "8" -> {
+                    saveMessagesToJSON();
+                    JOptionPane.showMessageDialog(null, "Thank you. Program exiting.");
+                    return;
+                }
+                default -> JOptionPane.showMessageDialog(null, "Invalid choice. Try again.");
             }
         }
     }
@@ -68,7 +75,8 @@ public class MessageHandler
           .append("Message: ").append(msg.content).append("\n")
           .append("-------------------------------\n");
     }
-
+    
+    sb.append("Total Messages Sent: ").append(messages.size());
     JOptionPane.showMessageDialog(null, sb.toString());
 
 }
@@ -126,7 +134,18 @@ public class MessageHandler
         }
         JOptionPane.showMessageDialog(null, sb.toString());
     }
-
+    // Feature: Display the longest message
+    public void displayLongestMessage() {
+        if (messages.isEmpty()) return;
+        Message longest = messages.get(0);
+        for (Message m : messages) {
+            if (m.content.length() > longest.content.length()) {
+                longest = m;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Longest Message:\n" + longest);
+    }
+    
     private String generateMessageID(String sender, int counter) 
     {
         return sender.substring(0, 2).toUpperCase() + String.format("%03d", counter);
