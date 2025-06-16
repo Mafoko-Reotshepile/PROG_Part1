@@ -145,6 +145,29 @@ public class MessageHandler
         }
         JOptionPane.showMessageDialog(null, "Longest Message:\n" + longest);
     }
+    // Feature: Search by recipient name
+    public void searchByRecipient(String recipient) {
+        StringBuilder sb = new StringBuilder();
+        for (Message msg : messages) {
+            if (msg.sender.equalsIgnoreCase(recipient)) {
+                sb.append(msg).append("\n------------------\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, sb.length() > 0 ? sb.toString() : "No messages found.");
+    }
+     // Feature: Delete by hash
+    public void deleteByHash(String hash) {
+        Iterator<Message> iterator = messages.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().hash.equals(hash)) {
+                iterator.remove();
+                JOptionPane.showMessageDialog(null, "Message deleted.");
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Message not found.");
+    }
+    
     
     private String generateMessageID(String sender, int counter) 
     {
