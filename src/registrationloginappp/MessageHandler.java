@@ -10,11 +10,14 @@ package registrationloginappp;
 
 import javax.swing.*;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class MessageHandler 
 {
@@ -53,7 +56,7 @@ public class MessageHandler
                 case "7" -> displayMessageReport();
                 case "8" -> {
                     saveMessagesToJSON();
-                    JOptionPane.showMessageDialog(null, "Thank you. Program exiting.");
+                    JOptionPane.showMessageDialog(null, "Thank you for using OuickChat.");
                     return;
                 }
                 default -> JOptionPane.showMessageDialog(null, "Invalid choice. Try again.");
@@ -167,7 +170,21 @@ public class MessageHandler
         }
         JOptionPane.showMessageDialog(null, "Message not found.");
     }
-    
+    // Feature: Report statistics
+    public void displayMessageReport() {
+        int totalMessages = messages.size();
+        int totalCharacters = 0;
+        StringBuilder sb = new StringBuilder("Message Report:\n\n");
+        for (Message msg : messages) {
+            int length = msg.content.length();
+            totalCharacters += length;
+            sb.append("Message ").append(msg.number)
+              .append(" - Characters: ").append(length).append("\n");
+        }
+        sb.append("\nTotal Messages: ").append(totalMessages)
+          .append("\nTotal Characters Sent: ").append(totalCharacters);
+        JOptionPane.showMessageDialog(null, sb.toString());
+    }
     
     private String generateMessageID(String sender, int counter) 
     {
@@ -196,6 +213,26 @@ public class MessageHandler
             file.write(jsonMessages.toJSONString());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving messages to JSON.");
+        }
+    }
+    
+     public void readMessagesFromJSON() 
+    {
+        try (FileReader reader = new FileReader("messages.json")) {
+            JSONArray jsonArray = (JSONArray) new JSONParser().parse(reader);
+            for (Object obj : jsonArray) {
+                JSONObject jsonObj = (JSONObject) obj;
+                messages.add(new Message(
+                    ((Long) jsonObj.get("messageNumber")).intValue(),
+                    (String) jsonObj.get("messageID"),
+                    (String) jsonObj.get("messageHash"),
+                    (String) jsonObj.get("sender"),
+                    (String) jsonObj.get("content")
+                ));
+            }
+            JOptionPane.showMessageDialog(null, "Messages loaded from JSON.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error reading from JSON.");
         }
     }
 }
